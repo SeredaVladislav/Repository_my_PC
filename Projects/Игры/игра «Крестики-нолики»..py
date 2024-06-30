@@ -1,18 +1,15 @@
-def welcome_func():
-    return (f"---------------------\n"
-            f"Игра крестики-нолики!\n"
-            f"---------------------\n"
-            f"Правила игры:\n"
-            f"1. Участвуют 2 игрока. Первый делает ход 'x'.\n"
-            f"2. Ввод координат в формате 'XX' через пробел.\n"
-            f"3. Первая координата по диагонали, вторая по вертикали.\n"
-            f"4. Используются только цифры от 0 до 2(включительно).\n"
-            f"5. При некорректном вводе или уже занятой клетке, игрок делает ход вновь.\n"
-            f"6. После каждого хода, обновленное игровое поле отображается.\n"
-            f"--- Удачи ---\n")
-
-
-# -----------------------
+def instructions_for_players():
+    print(f"---------------------\n"
+          f"Игра крестики-нолики!\n"
+          f"---------------------\n"
+          f"Правила игры:\n"
+          f"1. Участвуют 2 игрока. Первый делает ход 'x'.\n"
+          f"2. Ввод координат в формате 'XX' через пробел.\n"
+          f"3. Первая координата по диагонали, вторая по вертикали.\n"
+          f"4. Используются только цифры от 0 до 2(включительно).\n"
+          f"5. При некорректном вводе или уже занятой клетке, игрок делает ход вновь.\n"
+          f"6. После каждого хода, обновленное игровое поле отображается.\n"
+          f"--- Удачи ---\n")
 
 
 def playing_field(matrix_field):
@@ -27,9 +24,8 @@ def playing_field(matrix_field):
 def checking_correct_input(input_coords):
     correct_symbols = ['0', '1', '2']
 
-    if len(input_coords) == 2:
-        if input_coords[0] in correct_symbols and input_coords[1] in correct_symbols:
-            return True
+    if len(input_coords) == 2 and input_coords[0] in correct_symbols and input_coords[1] in correct_symbols:
+        return True
     return False
 
 
@@ -116,7 +112,7 @@ def player_o_func():
 
 
 # -----------------------
-print(welcome_func())
+
 
 array_coords_player_x = []
 array_coords_player_o = []
@@ -124,34 +120,42 @@ un_coords_array = []
 
 board_matrix = [['-' for _ in range(3)] for _ in range(3)]
 
+
 # -----------------------
-while True:
+def game_play():
+    instructions_for_players()
 
-    player_x_func()
+    while True:
 
-    if check_combination(array_coords_player_x) > 2:
-        playing_field(board_matrix)
-        print("\n*****\n"
-              "Крестик победил!\n"
-              "*****")
-        break
+        player_x_func()
 
-    if len(un_coords_array) == 9:
-        playing_field(board_matrix)
-        print("\n***Ничья***")
-        break
+        if check_combination(array_coords_player_x) > 2:
+            playing_field(board_matrix)
+            print("\n*****\n"
+                  "Крестик победил!\n"
+                  "*****")
+            break
 
-    # -----
-    player_o_func()
+        if len(un_coords_array) == 9:
+            playing_field(board_matrix)
+            print("\n***Ничья***")
+            break
 
-    if check_combination(array_coords_player_o) > 2:
-        playing_field(board_matrix)
-        print("\n*****\n"
-              "Нолик победил!\n"
-              "*****")
-        break
+        # -----
+        player_o_func()
 
-    if len(un_coords_array) == 9:
-        playing_field(board_matrix)
-        print("\n***Ничья***")
-        break
+        if check_combination(array_coords_player_o) > 2:
+            playing_field(board_matrix)
+            print("\n*****\n"
+                  "Нолик победил!\n"
+                  "*****")
+            break
+
+        if len(un_coords_array) == 9:
+            playing_field(board_matrix)
+            print("\n***Ничья***")
+            break
+
+
+if __name__ == '__main__':
+    game_play()
